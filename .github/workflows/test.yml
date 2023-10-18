@@ -23,11 +23,11 @@ jobs:
 
       - name: Terraform Setup
         uses: hashicorp/setup-terraform@v2
+        with:
+          terraform_version: 1.5.7 
 
       - name: Tflint Setup
         uses: terraform-linters/setup-tflint@v4
-        with:
-          terraform_version: 1.5.7 
 
       - name: Terraform Docs Setup
         run: |
