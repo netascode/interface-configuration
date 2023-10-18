@@ -97,12 +97,12 @@ variable "description" {
 }
 
 variable "role" {
-  description = "Node role. Allowed values: `leaf`, `spine`, `100g-4x`."
+  description = "Node role. Allowed values: `leaf`, `spine`."
   type        = string
   default     = "leaf"
 
   validation {
-    condition     = contains(["leaf", "spine", "100g-4x", "10g-4x", "25g-4x", "`50g-8x"], var.role)
+    condition     = contains(["leaf", "spine"], var.role)
     error_message = "Allowed values: `leaf`, `spine`."
   }
 }
