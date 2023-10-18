@@ -1,5 +1,5 @@
 terraform {
-  required_version = ">= 1.0.0"
+  required_version = ">= 1.3.0"
 
   required_providers {
     test = {
@@ -16,33 +16,41 @@ terraform {
 module "main" {
   source = "../.."
 
-  name = "ABC"
+  node_id      = 101
+  policy_group = "ACC1"
+  description  = "Port description"
+  port         = 10
 }
 
-data "aci_rest_managed" "fvTenant" {
-  dn = "uni/tn-ABC"
-
+data "aci_rest_managed" "infraPortConfig" {
+  dn         = "uni/infra/portconfnode-1001-card-1-port-10-sub-0"
   depends_on = [module.main]
 }
 
-resource "test_assertions" "fvTenant" {
-  component = "fvTenant"
+resource "test_assertions" "infraPortConfig" {
+  component = "infraPortConfig"
 
-  equal "name" {
-    description = "name"
-    got         = data.aci_rest_managed.fvTenant.content.name
-    want        = "ABC"
+  equal "assocGrp" {
+    description = "Policy Group"
+    got         = data.aci_rest_managed.infraPortConfig.content.assocGrp
+    want        = "uni/infra/funcprof/accportgrp-ACC1"
   }
 
-  equal "nameAlias" {
-    description = "nameAlias"
-    got         = data.aci_rest_managed.fvTenant.content.nameAlias
-    want        = ""
+  equal "port" {
+    description = "Port"
+    got         = data.aci_rest_managed.infraPortConfig.content.port
+    want        = 10
   }
 
   equal "descr" {
     description = "descr"
-    got         = data.aci_rest_managed.fvTenant.content.descr
-    want        = ""
+    got         = data.aci_rest_managed.infraPortConfig.content.descr
+    want        = "Port description"
+  }
+
+  equal "node" {
+    description = "Node ID"
+    got         = data.aci_rest_managed.infraPortConfig.content.node
+    want        = 101
   }
 }
