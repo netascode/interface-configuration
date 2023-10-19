@@ -43,7 +43,7 @@ module "aci_interface_configuration" {
 | <a name="input_card"></a> [card](#input\_card) | Module ID. Allowed values: 1-255. | `number` | `1` | no |
 | <a name="input_port"></a> [port](#input\_port) | Interface ID. Allowed values: 1-127. | `number` | `1` | no |
 | <a name="input_sub_port"></a> [sub\_port](#input\_sub\_port) | Subinterface ID. Allowed values: 1-64. | `number` | `0` | no |
-| <a name="input_policy_group_type"></a> [policy\_group\_type](#input\_policy\_group\_type) | Interface policy group type. Choices: `access`, `pc`, `vpc`, `breakout`. | `string` | `"access"` | no |
+| <a name="input_policy_group_type"></a> [policy\_group\_type](#input\_policy\_group\_type) | Interface policy group type. Choices: `access`, `pc`, `vpc`. | `string` | `"access"` | no |
 | <a name="input_policy_group"></a> [policy\_group](#input\_policy\_group) | Interface policy group name. | `string` | `"system-ports-default"` | no |
 | <a name="input_breakout"></a> [breakout](#input\_breakout) | Breakout Map. Allowed values: `none`, `100g-2x`, `100g-4x`, `10g-4x`, `25g-4x`, `50g-8x`. Default value: `none`. | `string` | `"none"` | no |
 | <a name="input_fex_id"></a> [fex\_id](#input\_fex\_id) | FEX ID. Allowed values: 101-199. `0` meaning no FEX. | `string` | `"unspecified"` | no |
