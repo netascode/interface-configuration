@@ -23,7 +23,7 @@ module "main" {
 }
 
 data "aci_rest_managed" "infraPortConfig" {
-  dn         = "uni/infra/portconfnode-1001-card-1-port-11-sub-0"
+  dn         = "uni/infra/portconfnode-101-card-1-port-11-sub-0"
   depends_on = [module.main]
 }
 
@@ -39,19 +39,19 @@ resource "test_assertions" "infraPortConfig" {
   equal "port" {
     description = "Port"
     got         = data.aci_rest_managed.infraPortConfig.content.port
-    want        = 11
+    want        = "11"
   }
 
   equal "descr" {
     description = "descr"
-    got         = data.aci_rest_managed.infraPortConfig.content.descr
-    want        = "Port description"
+    got         = data.aci_rest_managed.infraPortConfig.content.description
+    want        = "Port breakout"
   }
 
   equal "node" {
     description = "Node ID"
     got         = data.aci_rest_managed.infraPortConfig.content.node
-    want        = 101
+    want        = "101"
   }
 
   equal "brkoutMap" {
@@ -69,12 +69,12 @@ resource "test_assertions" "infraPortConfig" {
   equal "subPort" {
     description = "Subport"
     got         = data.aci_rest_managed.infraPortConfig.content.subPort
-    want        = 0
+    want        = "0"
   }
 
   equal "connectedFex" {
     description = "Connected FEX"
     got         = data.aci_rest_managed.infraPortConfig.content.connectedFex
-    want        = ""
+    want        = "unspecified"
   }
 }
