@@ -47,7 +47,7 @@ variable "policy_group_type" {
   default     = "access"
 
   validation {
-    condition     = contains(["access", "pc", "vpc", "breakout"], var.policy_group_type)
+    condition     = contains(["access", "pc", "vpc", "breakout", "fex"], var.policy_group_type)
     error_message = "Allowed values: `access`, `pc`, `vpc` or `breakout`."
   }
 }
@@ -55,7 +55,7 @@ variable "policy_group_type" {
 variable "policy_group" {
   description = "Interface policy group name."
   type        = string
-  default     = ""
+  default     = "system-ports-default"
 
   validation {
     condition     = can(regex("^[a-zA-Z0-9_.:-]{0,64}$", var.policy_group))
@@ -76,11 +76,11 @@ variable "breakout" {
 
 variable "fex_id" {
   description = "FEX ID. Allowed values: 101-199. `0` meaning no FEX."
-  type        = number
-  default     = 0
+  type        = string
+  default     = "unspecified"
 
   validation {
-    condition     = var.fex_id == 0 || try(var.fex_id >= 101 && var.fex_id <= 199, false)
+    condition     = try(contains(["unspecified"], var.fex_id), false) || try(tonumber(var.fex_id) == 0, false) || try(tonumber(var.fex_id) >= 101 && tonumber(var.fex_id) <= 65535, false)
     error_message = "Allowed values: 0, 101-199."
   }
 }
@@ -97,12 +97,12 @@ variable "description" {
 }
 
 variable "role" {
-  description = "Node role. Allowed values: `leaf`, `spine`."
+  description = "Node role. Allowed values: `leaf`, `spine`, `100g-4x`."
   type        = string
   default     = "leaf"
 
   validation {
-    condition     = contains(["leaf", "spine"], var.role)
+    condition     = contains(["leaf", "spine", "100g-4x", "10g-4x", "25g-4x", "`50g-8x"], var.role)
     error_message = "Allowed values: `leaf`, `spine`."
   }
 }
