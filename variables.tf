@@ -4,18 +4,18 @@ variable "node_id" {
 
   validation {
     condition     = try(var.node_id >= 101 && var.node_id <= 16000, false)
-    error_message = "Allowed characters: 101-16000."
+    error_message = "Allowed values: 101-16000."
   }
 }
 
-variable "card" {
+variable "module" {
   description = "Module ID. Allowed values: 1-255."
   type        = number
   default     = 1
 
   validation {
-    condition     = try(var.card >= 1 && var.card <= 255, false)
-    error_message = "Allowed characters: 1-255."
+    condition     = try(var.module >= 1 && var.module <= 255, false)
+    error_message = "Allowed values: 1-255."
   }
 }
 
@@ -26,7 +26,7 @@ variable "port" {
 
   validation {
     condition     = try(var.port >= 1 && var.port <= 127, false)
-    error_message = "Allowed characters: 1-127."
+    error_message = "Allowed charactvaluesers: 1-127."
   }
 }
 
@@ -97,12 +97,12 @@ variable "description" {
 }
 
 variable "role" {
-  description = "Node role. Allowed values: `leaf`, `spine`, `100g-4x`."
+  description = "Node role. Allowed values: `leaf`, `spine`."
   type        = string
   default     = "leaf"
 
   validation {
-    condition     = contains(["leaf", "spine", "100g-4x", "10g-4x", "25g-4x", "`50g-8x"], var.role)
+    condition     = contains(["leaf", "spine"], var.role)
     error_message = "Allowed values: `leaf`, `spine`."
   }
 }
